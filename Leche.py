@@ -15,6 +15,14 @@ urls = {
     'toledo': "https://toledodigital.com.ar/storeview_jara/catalog/product/view/id/3912/category/1282/",
     'la_coope': "https://www.lacoopeencasa.coop/producto/leche-larga-vida-la-serenisima-descremada-50%25-mas-proteina-1lts/710007"
 }
+
+clases = {
+    'dia': "vtex-product-specifications-1-x-specificationValue vtex-product-specifications-1-x-specificationValue--first vtex-product-specifications-1-x-specificationValue--last",
+    'disco': "discoargentina-store-theme-2t-mVsKNpKjmCAEM_AMCQH",
+    'coto': "atg_store_newPrice",
+    'toledo': "price",
+    'la_coope': "precio.precio-detalle"
+}
 #Crea la lista de tiendas en mayusculas para agregar al csv
 def Lista_tiendas(urls):
     tienditas = []
@@ -41,6 +49,22 @@ def precio_producto_soup(url=str, elemento=str, clase=str):
     return precio
 def avg(precios=list):
     return sum(precios) / len(precios)
+def precio_producto_diver_by_class(url=str, clase=str):
+    driver.get(url)
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.CLASS_NAME, clase))
+    )
+    precio = driver.find_elements(By.CLASS_NAME, clase)
+    return precio
+def precio_producto_driver_by_css(url=str, clase=str, element=str):
+    driver.get(url)
+    eleclase = element + "." + clase
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, eleclase))
+    )
+    precio = driver.find_elements(By.CSS_SELECTOR, eleclase)
+    return precio
+
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--log-level=3")
 chrome_options.add_argument("--ignore-certificate-errors")
@@ -54,19 +78,14 @@ listado_leches=[
 ]
 
 #DIA
-precio = precio_producto_soup(urls['dia'], 'span', 'vtex-product-specifications-1-x-specificationValue vtex-product-specifications-1-x-specificationValue--first vtex-product-specifications-1-x-specificationValue--last')
+precio = precio_producto_soup(urls['dia'], 'span', clases['dia'])
 if precio:
     int_precio = int(recorte_strings(limpieza_strings(precio.text)))
     print('Agregando precio de DIA', int_precio)
     listado_leches.append(int_precio)
 
 #DISCO
-driver.get(urls['disco'])
-#tengo que esperar 5sg porque disco es re gracioso, asi tipo categoria humor, se jijea el tipazo
-WebDriverWait(driver, 10).until(
-        EC.presence_of_all_elements_located((By.CLASS_NAME, "discoargentina-store-theme-2t-mVsKNpKjmCAEM_AMCQH"))
-    )
-precio = driver.find_elements(By.CLASS_NAME, "discoargentina-store-theme-2t-mVsKNpKjmCAEM_AMCQH")
+precio = precio_producto_diver_by_class(urls['disco'], clases['disco'])
 if precio:
     for i in precio:
         if bool(i.text):
@@ -75,8 +94,7 @@ if precio:
             listado_leches.append(int_precio)
 
 #COTO
-driver.get(urls['coto'])
-precio = driver.find_elements(By.CSS_SELECTOR, "span.atg_store_newPrice")
+precio = precio_producto_driver_by_css(urls['coto'], clases['coto'], 'span')
 if precio:
     for i in precio:
         if bool(i.text):
@@ -86,18 +104,14 @@ if precio:
             listado_leches.append(int_precio)
 
 # TOLEDO
-precio = precio_producto_soup(urls['toledo'], 'span', "price" )
+precio = precio_producto_soup(urls['toledo'], 'span', clases['toledo'] )
 if precio:
     int_precio = int(recorte_strings(limpieza_strings(precio.text)))
     print('Agregando precio de TOLEDO', int_precio)
     listado_leches.append(int_precio)
 
 #LA COPPE
-driver.get(urls['la_coope'])
-WebDriverWait(driver, 10).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.precio.precio-detalle'))
-    )
-precio = driver.find_elements(By.CSS_SELECTOR, 'div.precio.precio-detalle')
+precio = precio_producto_driver_by_css(urls['la_coope'], clases['la_coope'], "div")
 if precio:
     for i in precio:
         if bool(i.text):

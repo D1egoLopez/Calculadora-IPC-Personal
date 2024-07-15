@@ -32,6 +32,9 @@ def csv_stuff(nombre_archivo=str, tiendas=list, precios=list, avg=int):
     for i in tiendas:
         l=+1
         csv_headers[l] = i
+    
+    #A cambiar esta parte, asi como vengo hasta ahora esta funcion crearia un csv nuevo para cada ejecucion, necesito que agregue a un csv existente la data nueva
+    #separar la creacion de un csv para cada linea de productos en otra funcion y en otra funcion aparte agregar lineas de data
     csv_headers.append('Precio Promedio')
     with open(csv_file_name, mode = 'w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=csv_headers)
