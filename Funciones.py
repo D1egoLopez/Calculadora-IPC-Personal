@@ -23,22 +23,17 @@ def precio_producto_soup(url=str, elemento=str, clase=str):
 def avg(precios=list):
     return sum(precios) / len(precios)
 
-def csv_stuff(nombre_archivo=str, tiendas=list, precios=list, avg=int):
+
+#, precios=list, avg=int
+def create_csv_with_headers(nombre_archivo=str, tiendas=list):
     csv_file_name = nombre_archivo + ".csv"
-    csv_headers = []
-    tiendas = tiendas
-    csv_headers[0] = ['Fecha']
-    l = 1
-    for i in tiendas:
-        l=+1
-        csv_headers[l] = i
-    
+    csv_headers = ['Fecha'] + tiendas + ['Precio Promedio']
     #A cambiar esta parte, asi como vengo hasta ahora esta funcion crearia un csv nuevo para cada ejecucion, necesito que agregue a un csv existente la data nueva
     #separar la creacion de un csv para cada linea de productos en otra funcion y en otra funcion aparte agregar lineas de data
     csv_headers.append('Precio Promedio')
     with open(csv_file_name, mode = 'w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=csv_headers)
-        writer.writeheader()
+        writer = csv.writer(file)
+        writer.writerow(csv_headers)
 
 
 
