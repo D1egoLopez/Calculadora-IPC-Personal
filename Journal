@@ -6,3 +6,6 @@ En otro orden de cosas no se porque no puedo importar metodos de MIS propios .py
 De momento quedo todo medio roto F
 Al final el botocot usa productos genericos y no se podria extraer precios de productos especificos, voy a acomodar un par de procesos para que se generalice y asi evitar errores 
 para casos como el de los jijosos de DISCO.
+
+16/7/2024:
+Arregle lo de disco xd

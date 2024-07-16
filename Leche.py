@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from fufu import *
 
 urls = {
     'dia': "https://diaonline.supermercadosdia.com.ar/leche-descremada-la-serenisima-protein-1-lt-272382/p",
@@ -34,45 +34,12 @@ Tiendas = Lista_tiendas(urls)
 
 #cambiar tiendas a que se agregue cuando encuentra un precio, DISCO y la re concha de tu madre
 
-def limpieza_strings(in_str=str):
-    out_str = in_str.replace(',', '').replace('.', '').replace('$', '')
-    return out_str
-def recorte_strings(in_str=str):
-    out_str = in_str[:-2]
-    return out_str
-def URL_setter(url):
-    source = requests.get(url)
-    soup = BeautifulSoup(source.text, 'html.parser')
-    return soup
-def precio_producto_soup(url=str, elemento=str, clase=str):
-    soup = URL_setter(url)
-    precio = soup.find(elemento, class_=clase)
-    return precio
-def avg(precios=list):
-    return sum(precios) / len(precios)
-def precio_producto_diver_by_class(url=str, clase=str):
-    driver.get(url)
-    WebDriverWait(driver, 20).until(
-        EC.presence_of_all_elements_located((By.CLASS_NAME, clase))
-    )
-    precio = driver.find_elements(By.CLASS_NAME, clase)
-    return precio
-def precio_producto_driver_by_css(url=str, clase=str, element=str):
-    driver.get(url)
-    eleclase = element + "." + clase
-    WebDriverWait(driver, 30).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, eleclase))
-    )
-    precio = driver.find_elements(By.CSS_SELECTOR, eleclase)
-    return precio
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--log-level=3")
-chrome_options.add_argument("--ignore-certificate-errors")
-#chrome_options.add_argument('--headless')
-#chrome_options.add_argument('--disable-gpu')
-#chrome_options.add_experimental_option("detach", True)
-driver = webdriver.Chrome(options=chrome_options)
+
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.add_argument("--log-level=3")
+# chrome_options.add_argument("--ignore-certificate-errors")
+# driver = webdriver.Chrome(options=chrome_options)
 
 listado_leches=[
 
@@ -85,21 +52,17 @@ if precio:
     print('Agregando precio de DIA', int_precio)
     listado_leches.append(int_precio)
 
-soup = URL_setter(urls['disco'])
-precio = soup.find_all('div', class_=clases['disco'])
-for i in precio:
-    print(i)
-
 
 
 #DISCO algo ta roto que habra que ver || Disco la concha de tu madre por que ahora no te pinta mostrarme el valor de la leche, dale amigo re gil, Moreno se enojaria >.<
-#precio = precio_producto_driver_by_css(urls['disco'], clases['disco'], 'div')
-# if precio:
-#      for i in precio:
-#          if bool(i.text):
-#               int_precio = int(limpieza_strings(i.text))
-#               print('Agregando precio de DISCO', int_precio)
-#               listado_leches.append(int_precio)
+#Arreglada la wea, si se rompe de vuelta reviento el disco de guemes a piedrazos
+precio = precio_producto_diver_by_class_cgt(urls['disco'], clases['disco'])
+if precio:
+    for i in precio:
+        print(i.text, 'viva peron')
+        int_precio = int(limpieza_strings(i.text))
+        print('Agregando precio de DISCO', int_precio)
+        listado_leches.append(int_precio)
 
 #COTO
 precio = precio_producto_driver_by_css(urls['coto'], clases['coto'], 'span')
@@ -127,12 +90,7 @@ if precio:
             print('Agregando precio de LA COPPE', int_precio)
             listado_leches.append(int_precio)
 
-driver.close()
 precio_promedio = avg(listado_leches)
-
-
-
-#Funciones.create_csv_with_headers("Leche", Tiendas)
 
 print(Tiendas)
 print(listado_leches)
