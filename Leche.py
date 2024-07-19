@@ -6,13 +6,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from fufu import *
+#import pandas as pd
 
 urls = {
     'dia': "https://diaonline.supermercadosdia.com.ar/leche-descremada-la-serenisima-protein-1-lt-272382/p",
     'disco': "https://www.disco.com.ar/leche-uat-la-serenisima-proteina-1lt/p",
     'coto': "https://www.cotodigital3.com.ar/sitios/cdigi/producto/-leche-protein-la-serenisina-botella-larga-vida-1l/_/A-00508911-00508911-200",
     'toledo': "https://toledodigital.com.ar/storeview_jara/catalog/product/view/id/3912/category/1282/",
-    'la_coope': "https://www.lacoopeencasa.coop/producto/leche-larga-vida-la-serenisima-descremada-50%25-mas-proteina-1lts/710007"
+    'la coope': "https://www.lacoopeencasa.coop/producto/leche-larga-vida-la-serenisima-descremada-50%25-mas-proteina-1lts/710007"
 }
 
 clases = {
@@ -20,7 +21,7 @@ clases = {
     'disco': "discoargentina-store-theme-1dCOMij_MzTzZOCohX1K7w",
     'coto': "atg_store_newPrice",
     'toledo': "price",
-    'la_coope': "precio.precio-detalle"
+    'la coope': "precio.precio-detalle"
 }
 #Crea la lista de tiendas en mayusculas para agregar al csv
 def Lista_tiendas(urls):
@@ -59,7 +60,6 @@ if precio:
 precio = precio_producto_diver_by_class_cgt(urls['disco'], clases['disco'])
 if precio:
     for i in precio:
-        print(i.text, 'viva peron')
         int_precio = int(limpieza_strings(i.text))
         print('Agregando precio de DISCO', int_precio)
         listado_leches.append(int_precio)
@@ -82,15 +82,17 @@ if precio:
     listado_leches.append(int_precio)
 
 #LA COPPE
-precio = precio_producto_driver_by_css(urls['la_coope'], clases['la_coope'], "div")
+precio = precio_producto_driver_by_css(urls['la coope'], clases['la coope'], "div")
 if precio:
     for i in precio:
         if bool(i.text):
             int_precio = int(recorte_strings(limpieza_strings(i.text)))
-            print('Agregando precio de LA COPPE', int_precio)
+            print('Agregando precio de LA COOPE', int_precio)
             listado_leches.append(int_precio)
 
 precio_promedio = avg(listado_leches)
+
+create_csv_with_headers("leche", Tiendas)
 
 print(Tiendas)
 print(listado_leches)

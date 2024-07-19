@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import csv
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--log-level=3")
@@ -67,3 +68,10 @@ def precio_producto_diver_by_class_cgt(url=str, clase=str):
     precio = driver.find_elements(By.CLASS_NAME, clase)
     driver.close
     return precio
+
+def create_csv_with_headers(nombre_archivo=str, tiendas=list):
+    csv_file_name = nombre_archivo + ".csv"
+    csv_headers = ['Fecha'] + tiendas + ['Precio Promedio']
+    with open(csv_file_name, mode="w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(csv_headers)
