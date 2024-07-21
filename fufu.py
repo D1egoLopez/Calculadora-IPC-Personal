@@ -18,7 +18,7 @@ chrome_options.add_argument("--silent")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")
-chromedriver_path = 'chromedriver.exe'
+chromedriver_path = os.path.join('webdriver', 'chromedriver.exe')
 service = Service(chromedriver_path)
 urls = {
     'DIA': '',
