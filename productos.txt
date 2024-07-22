@@ -1,9 +1,10 @@
 arroz $/kg
 leche papotera $/lt
+aceite girasol $/lt
+aceite oliva $/lt
+
 ** Pechuga pollo $/kg
 raffe** Carne picada $/kg
-aceite girasol $/lt
-aceite oliva $/lt 
 ML**papota $/kg https://www.mercadolibre.com.ar/suplemento-en-polvo-star-nutrition-platinum-whey-protein-sabor-banana-cream-en-pote-de-907g/p/MLA18710126?pdp_filters=item_id:MLA1132132782#is_advertising=true&searchVariation=MLA18710126&position=4&search_layout=stack&type=pad&tracking_id=8eefdfce-54b8-4821-b4e4-2f83e3b29031&is_advertising=true&ad_domain=VQCATCORE_LST&ad_position=4&ad_click_id=NWQ0NTJhY2UtMWMyZS00NjUxLTliM2ItMTYxODczYmQyNWVj
 ML**creatina $/kg https://www.mercadolibre.com.ar/suplemento-en-polvo-star-nutrition-creatine-monohydrate-ultramicronized-en-pote-de-300g-sin-sabor/p/MLA18535197#reco_item_pos=1&reco_backend=best-seller&reco_backend_type=low_level&reco_client=highlights-rankings&reco_id=7f775636-ba48-476f-a9b0-dd93c8633d80
 ** huevos $/15H

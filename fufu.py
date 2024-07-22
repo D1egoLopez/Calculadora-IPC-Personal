@@ -18,6 +18,7 @@ chrome_options.add_argument("--silent")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--start-minimized")
 chromedriver_path = os.path.join('webdriver', 'chromedriver.exe')
 service = Service(chromedriver_path)
 urls = {
@@ -167,7 +168,7 @@ def buscar_coto(url = str, lista_precios = list, csv_dict = dict):
         for i in precio:
             if bool(i.text):
                 oferta = 0
-                int_precio = int(recorte_strings(limpieza_strings(i.text)))
+                int_precio = int(limpieza_strings(i.text))
                 print('Agregando precio de COTO', int_precio)
                 lista_precios.append(int_precio)
                 csv_dict[Super] = int_precio
@@ -177,7 +178,7 @@ def buscar_coto(url = str, lista_precios = list, csv_dict = dict):
         precio_oferta = precio_producto_driver_by_css(url, clase_oferta, 'span')
         if precio_oferta:
             if bool(precio_oferta[0].text):
-                int_precio = int(recorte_strings(limpieza_strings(precio_oferta[0].text)))
+                int_precio = int(limpieza_strings(precio_oferta[0].text))
                 print('Agregando precio de COTO en oferta', int_precio)
                 lista_precios.append(int_precio)
                 csv_dict[Super] = int_precio
