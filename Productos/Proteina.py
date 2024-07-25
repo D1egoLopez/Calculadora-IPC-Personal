@@ -6,7 +6,7 @@ from fufu import *
 
 
 def run ():
-    url = 'https://www.mercadolibre.com.ar/star-nutrition-platinum-proteinas-platinum-whey-protein-polvo-pote-cookies-cream-unidad-1-1-908-g-908-g/p/MLA18710125?product_trigger_id=MLA18710123&quantity=1'
+    url = 'https://www.mercadolibre.com.ar/star-nutrition-platinum-proteinas-platinum-whey-protein-polvo-pote-cookies-cream-unidad-1-1-908-g-908-g/p/MLA18710125?product_trigger_id=MLA18710123&pdp_filters=seller_id%3A93622393&applied_product_filters=MLA18710123&quantity=1'
 
     csv_file ='Proteina.csv'
     to_csv_dict = {
