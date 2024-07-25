@@ -34,6 +34,7 @@ def run():
 
     #COTO
     buscar_coto(urls['COTO'], listado_leches, to_csv_dict)
+    to_csv_dict['COTO'] = recorte_strings(str(to_csv_dict['COTO']))
 
     # TOLEDO
     buscar_toledo(urls['TOLEDO'], listado_leches, to_csv_dict)

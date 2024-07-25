@@ -9,3 +9,7 @@ header_s_tiendas = []
 create_csv_with_headers("leche", headers_c_tiendas)
 create_csv_with_headers("Aceite Girasol", headers_c_tiendas)
 create_csv_with_headers('Arroz', headers_c_tiendas)
+create_csv_with_headers("Proteina", ['FECHA', 'PROTEINA'])
+create_csv_with_headers("Creatina", ['FECHA', 'CREATINA'])
+create_csv_with_headers("Youtube", ['MES', 'YOUTUBE'])
+create_csv_with_headers("Crunchyroll", ['MES', 'Crunchyroll'])

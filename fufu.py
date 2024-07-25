@@ -216,6 +216,16 @@ def buscar_la_coope(url = str, lista_precios = list, csv_dict = dict):
                         lista_precios.append(int_precio)
                         csv_dict[Super] = int_precio
 
+def push_to_csv_simple(csv_dict = dict, csv_file = str):
+    dir = 'CSVs'
+    csv_file_path = os.path.join(dir, csv_file)
+    frecha = "FECHA"
+    dait = datetime.datetime.now()
+    dait_formateated = dait.strftime("%d/%m/%Y")
+    csv_dict[frecha] = dait_formateated
+    print('Agregando nueva DATA: ', csv_dict)
+    add_data_row_csv(csv_file_path,csv_dict)
+
 def push_to_csv(lista=list, csv_dict = dict, csv_file = str):
     dir = 'CSVs'
     csv_file_path = os.path.join(dir, csv_file)
